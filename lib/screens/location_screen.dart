@@ -26,7 +26,7 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    if(weatherData == null){
+    if (weatherData == null) {
       cityName = "";
       temperature = 0;
       weatherMessage = "Error";
@@ -65,8 +65,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () async{
-                      var weatherData = await WeatherModel().getLocationWeather();
+                    onPressed: () async {
+                      var weatherData =
+                          await WeatherModel().getLocationWeather();
                       updateUI(weatherData);
                     },
                     child: Icon(
@@ -75,8 +76,17 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CityScreen()));
+                    onPressed: () async{
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CityScreen(),
+                        ),
+                      );
+                      if(typedName != null){
+                        var weatherData = await weatherModel.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
