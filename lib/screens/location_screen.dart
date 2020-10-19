@@ -38,7 +38,7 @@ class _LocationScreenState extends State<LocationScreen> {
       //double temp = weatherData["main"]["temp"];
       int condition = weatherData["weather"][0]["id"];
       weatherIcon = weatherModel.getWeatherIcon(condition);
-      temperature = weatherData["main"]["temp"];
+      temperature = (weatherData["main"]["temp"]);
       weatherMessage = weatherModel.getMessage(temperature);
     });
   }
